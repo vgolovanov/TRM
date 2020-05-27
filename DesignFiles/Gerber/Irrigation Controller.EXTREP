@@ -1,0 +1,22 @@
+------------------------------------------------------------------------------------------
+Gerber File Extension Report For: Irrigation Controller.GBR   5/9/2020  8:19:57 AM
+------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------
+Layer Extension     Layer Description                      
+------------------------------------------------------------------------------------------
+.GTL                Top Layer                               
+.GBL                Bottom Layer                            
+.GTO                Top Overlay                             
+.GTS                Top Solder                              
+.GBS                Bottom Solder                           
+.GBO                Bottom Overlay                          
+.Outline            Outline                                 
+.Assembly Text Top  Assembly Text Top                       
+.Assembly Text BottomAssembly Text Bottom                    
+.Assembly Top       Assembly Top                            
+.Assembly Bottom    Assembly Bottom                         
+.Dimensions Top     Dimensions Top                          
+.Dimensions Bottom  Dimensions Bottom                       
+------------------------------------------------------------------------------------------

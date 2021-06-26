@@ -45,19 +45,19 @@
             the handlers will be aborted and the reboot will be executed.
             </param>
         </member>
-        <member name="T:nanoFramework.Runtime.Native.GC">
+        <member name="T:nanoFramework.Runtime.Native.Debug">
             <summary>
-            Provides a set of methods and properties to control GC (garbage collection), a service that automatically reclaims unused computer memory.
+            Provides a set of methods and properties that help developers to debug code.
             </summary>
         </member>
-        <member name="M:nanoFramework.Runtime.Native.GC.Run(System.Boolean)">
+        <member name="M:nanoFramework.Runtime.Native.Debug.GC(System.Boolean)">
             <summary>
             Runs GC (garbage collection), a service that automatically reclaims unused computer memory.
             </summary>
             <param name="compactHeap"><see langword="true"/> to force heap compaction; otherwise, <see langword="false"/>.</param>
             <returns>The amount of free (unused) memory, in bytes.</returns>
         </member>
-        <member name="M:nanoFramework.Runtime.Native.GC.EnableGCMessages(System.Boolean)">
+        <member name="M:nanoFramework.Runtime.Native.Debug.EnableGCMessages(System.Boolean)">
             <summary>
             Specifies whether GC (garbage collection) messages are enabled.
             </summary>
@@ -65,6 +65,45 @@
             <remarks>
             Despite this method enabling the GC messages there is the possibility of those never being outputted depending on the target build options.
             RTM builds (which remove all non essential features) are one of those situations.
+            </remarks>
+        </member>
+        <member name="M:nanoFramework.Runtime.Native.Debug.Assert(System.Boolean)">
+            <summary>
+            Causes a break in execution if the specified assertion (condition) evaluates to false.
+            </summary>
+            <param name="condition">The condition to be evaluated. If the value is false, program execution stops.</param>
+        </member>
+        <member name="M:nanoFramework.Runtime.Native.Debug.Assert(System.Boolean,System.String)">
+            <summary>
+            Causes a break in execution if the specified assertion (condition) evaluates to false.
+            </summary>
+            <param name="condition">The condition to be evaluated. If the value is false, program execution stops.</param>
+            <param name="message">The text to be output if the assertion is false.</param>
+        </member>
+        <member name="M:nanoFramework.Runtime.Native.Debug.Assert(System.Boolean,System.String,System.String)">
+            <summary>
+            Causes a break in execution if the specified assertion (condition) evaluates to false.
+            </summary>
+            <param name="condition">The condition to be evaluated. If the value is false, program execution stops.</param>
+            <param name="message">The text to be output if the assertion is false.</param>
+            <param name="detailedMessage">The detailed message to be displayed if the assertion is false.</param>
+        </member>
+        <member name="M:nanoFramework.Runtime.Native.Debug.Write(System.String)">
+            <summary>
+            Writes a message to the trace listeners in the Listeners collection.
+            </summary>
+            <param name="message">A message to write.</param>
+            <remarks>
+            In nanoFramework implementation the message is output to Visual Studio debugger window.
+            </remarks>
+        </member>
+        <member name="M:nanoFramework.Runtime.Native.Debug.WriteLine(System.String)">
+            <summary>
+            Writes a message followed by a line terminator to the trace listeners in the Listeners collection.
+            </summary>
+            <param name="message">A message to write.</param>
+            <remarks>
+            In nanoFramework implementation the message is output to Visual Studio debugger window.
             </remarks>
         </member>
         <member name="T:nanoFramework.Runtime.Native.SystemInfo">

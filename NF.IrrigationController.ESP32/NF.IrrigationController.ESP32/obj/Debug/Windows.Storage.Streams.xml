@@ -294,6 +294,20 @@
             </summary>
             <value>The available buffer length, in bytes.</value>
         </member>
+        <member name="M:Windows.Storage.Streams.DataWriter.DetachStream">
+            <summary>
+            Detaches a stream that was previously attached to the data writer.
+            </summary>
+            <returns>The detached stream.</returns>
+        </member>
+        <member name="M:Windows.Storage.Streams.DataWriter.DetachBuffer">
+            <summary>
+            Detaches the buffer that is associated with the data writer.
+            </summary>
+            <returns>
+            The detached buffer.
+            </returns>
+        </member>
         <member name="M:Windows.Storage.Streams.DataWriter.Flush">
             <summary>
             Flushes data.
@@ -636,6 +650,20 @@
             </summary>
             <value>The available buffer length, in bytes.</value>
         </member>
+        <member name="M:Windows.Storage.Streams.IDataWriter.DetachStream">
+            <summary>
+            Detaches a stream that was previously attached to the writer.
+            </summary>
+            <returns>The detached stream.</returns>
+        </member>
+        <member name="M:Windows.Storage.Streams.IDataWriter.DetachBuffer">
+            <summary>
+            Detaches the buffer that is associated with the data writer.
+            </summary>
+            <returns>
+            The detached buffer.
+            </returns>
+        </member>
         <member name="M:Windows.Storage.Streams.IDataWriter.Flush">
             <summary>
             Flushes data.
@@ -785,9 +813,6 @@
             Provides random access of data in input and output streams that are stored in memory instead of on disk.
             </summary>
         </member>
-        <member name="P:Windows.Storage.Streams.InMemoryRandomAccessStream.UnstoredBufferLength">
-            <inheritdoc/>
-        </member>
         <member name="P:Windows.Storage.Streams.InMemoryRandomAccessStream.CanRead">
             <summary>
             Gets a value that indicates whether the stream can be read from.
@@ -903,12 +928,6 @@
             <summary>
             Represents a sequential stream of bytes to be written.
             </summary>
-        </member>
-        <member name="P:Windows.Storage.Streams.IOutputStream.UnstoredBufferLength">
-            <summary>
-            Gets the size of the buffer that has not been used.
-            </summary>
-            <value>The available buffer length, in bytes.</value>
         </member>
         <member name="M:Windows.Storage.Streams.IOutputStream.Flush">
             <summary>

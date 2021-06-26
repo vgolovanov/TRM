@@ -1,7 +1,6 @@
 using System;
 using System.Threading;
 using Windows.Devices.Gpio;
-using System.Diagnostics;
 
 public class ZoneTimer
 {
@@ -227,13 +226,13 @@ public class ZoneTimer
                     if (Zone == Zones[i].ZoneName)
                     {
                         CurrentZoneOff = true;
-                        Debug.WriteLine("Off");
+                        Console.WriteLine("Off");
 
                     }
                     else
                     {
                         StartTimer(Zones[i].ZoneName, Zones[i].ZoneTime);
-                        Debug.WriteLine("On");
+                        Console.WriteLine("On");
                     }
                 
                     Thread.Sleep(200);
@@ -243,7 +242,7 @@ public class ZoneTimer
 
             }
             if (APModeSW.Read() == GpioPinValue.Low)
-                Debug.WriteLine("AP Mode ToDo");
+                Console.WriteLine("AP Mode ToDo");
 
             if (ProgramSW.Read() == GpioPinValue.Low)
             {
@@ -251,12 +250,12 @@ public class ZoneTimer
                 if (ProgramActivated == true)
                 {
                     ProgramActivated = false;
-                    Debug.WriteLine("Program Cancelled");
+                    Console.WriteLine("Program Cancelled");
                 }
                 else
                 {
                     ProgramActivated = true;
-                    Debug.WriteLine("Pragram Activated");
+                    Console.WriteLine("Pragram Activated");
                 }
 
             }

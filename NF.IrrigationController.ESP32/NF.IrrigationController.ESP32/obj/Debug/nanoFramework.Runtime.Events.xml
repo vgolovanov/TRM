@@ -4,6 +4,20 @@
         <name>nanoFramework.Runtime.Events</name>
     </assembly>
     <members>
+        <member name="T:nanoFramework.Runtime.Events.EventArgs">
+            <summary>
+            Constitutes the base class for classes that contain event data. 
+            </summary>
+            <remarks>
+            This class contains no event data; it is used by events that do not pass state information to an event handler when an event is raised. 
+            If the event handler requires state information, the application must derive a class from this class to hold the data.
+            </remarks>
+        </member>
+        <member name="F:nanoFramework.Runtime.Events.EventArgs.Empty">
+            <summary>
+            Gets an empty, read-only <see cref="T:nanoFramework.Runtime.Events.EventArgs"/> object. 
+            </summary>
+        </member>
         <member name="T:nanoFramework.Runtime.Events.IEventListener">
             <summary>
             Provides an interface to use as the basis of event listeners.

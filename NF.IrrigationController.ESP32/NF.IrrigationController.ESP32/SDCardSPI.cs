@@ -3,10 +3,9 @@ using nanoFramework.Hardware.Esp32;
 using Windows.Storage;
 using Windows.Storage.Devices;
 using Windows.Storage.Streams;
-using System.Diagnostics;
 
-namespace NF.IrrigationController.ESP32
-{
+//namespace NF.IrrigationController.ESP32
+//{
     public class nfStorage
     {
        
@@ -29,7 +28,7 @@ namespace NF.IrrigationController.ESP32
         ////PI1 CLOCK Pin 19
         //SPI1 MOSI Pin 23
         /// </summary>
-        public nfStorage(Boolean DeviceIsSDCard = false, int MOSIPin = 23, int MISOPin = 25, int CLOCKPin = 19, int CSPin = 26)
+        public nfStorage(Boolean DeviceIsSDCard = true, int MOSIPin = 23, int MISOPin = 25, int CLOCKPin = 19, int CSPin = 26)
         {
 
             if (DeviceIsSDCard == false)
@@ -81,7 +80,7 @@ namespace NF.IrrigationController.ESP32
 
                     if (SDCard.IsMounted)
                     {
-                        Debug.WriteLine("Success SDCard is mounted");
+                        Console.WriteLine("Success SDCard is mounted");
 
                         StorageFolder externalDevices = Windows.Storage.KnownFolders.RemovableDevices;
 
@@ -96,7 +95,7 @@ namespace NF.IrrigationController.ESP32
 
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("Failed to mount SDCard \n" + ex.Message);
+                    Console.WriteLine("Failed to mount SDCard \n" + ex.Message);
                 }
 
             }
@@ -136,7 +135,7 @@ namespace NF.IrrigationController.ESP32
 
                 i += 1;
                 
-                Debug.WriteLine("Files -> " + file.Path);
+                Console.WriteLine("Files -> " + file.Path);
 
             }
 
@@ -203,7 +202,7 @@ namespace NF.IrrigationController.ESP32
                       
                        dataReader.ReadBytes(cBuf);
                        
-                        Debug.WriteLine($"Buffer length = {cBuf.Length}");
+                        Console.WriteLine($"Buffer length = {cBuf.Length}");
                        
                         return cBuf;
 
@@ -217,7 +216,7 @@ namespace NF.IrrigationController.ESP32
 
             catch (Exception ex)
             {
-                Debug.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
 
                 return ErrorByte;
               
@@ -253,7 +252,7 @@ namespace NF.IrrigationController.ESP32
 
                         FileIO.WriteBytes(File, writeBuffer);
 
-                        Debug.WriteLine("Wrote " + writeBuffer.Length + " bytes to " + FilePath + " for append");
+                        Console.WriteLine("Wrote " + writeBuffer.Length + " bytes to " + FilePath + " for append");
 
                     }
 
@@ -263,14 +262,14 @@ namespace NF.IrrigationController.ESP32
 
                         FileIO.WriteBytes(File, Buffer);
 
-                        Debug.WriteLine("Wrote " + Buffer.Length + " bytes to " + FilePath);
+                        Console.WriteLine("Wrote " + Buffer.Length + " bytes to " + FilePath);
 
                     }
              
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error writing binary file: " + ex.Message);
+                Console.WriteLine("Error writing binary file: " + ex.Message);
 
             }
         }
@@ -286,7 +285,7 @@ namespace NF.IrrigationController.ESP32
 
             if(IsInternalStorage)
             {
-                Debug.WriteLine("\n Directories are currently not supported for internal storage.\n");
+                Console.WriteLine("\n Directories are currently not supported for internal storage.\n");
                 
             }
            
@@ -317,7 +316,7 @@ namespace NF.IrrigationController.ESP32
 
                 i += 1;
 
-                Debug.WriteLine($"Folder ->{folder.Name}");
+                Console.WriteLine($"Folder ->{folder.Name}");
 
             }
 
@@ -342,7 +341,7 @@ namespace NF.IrrigationController.ESP32
             if (FilePath.IndexOf(slash) == -1)
             {
 
-                Debug.WriteLine("File path -> " + FilePath);
+                Console.WriteLine("File path -> " + FilePath);
                 Fname = FilePath;
 
             }
@@ -355,20 +354,20 @@ namespace NF.IrrigationController.ESP32
 
                    Sfolder = Sfolder.CreateFolder(str[i], CreationCollisionOption.ReplaceExisting);
 
-                   Debug.WriteLine("Successfully created folder: " + Sfolder.Path);
+                   Console.WriteLine("Successfully created folder: " + Sfolder.Path);
 
                 }
 
                 Fname = str[str.Length - 1];
 
-                Debug.WriteLine("File name -> " + Fname);
+                Console.WriteLine("File name -> " + Fname);
 
               }
 
             }
             catch (Exception)
             {
-                Debug.WriteLine("Directories are not supported for internal storage");
+                Console.WriteLine("Directories are not supported for internal storage");
                 
             }
 
@@ -395,7 +394,7 @@ namespace NF.IrrigationController.ESP32
                     {
                         Sfolder = Sfolder.CreateFolder(StartingDirectory, CreationCollisionOption.ReplaceExisting);
 
-                        Debug.WriteLine("Successfully created folder: " + Sfolder.Path);
+                        Console.WriteLine("Successfully created folder: " + Sfolder.Path);
                     }
 
                 }
@@ -409,7 +408,7 @@ namespace NF.IrrigationController.ESP32
 
                         Sfolder = Sfolder.CreateFolder(str[i], CreationCollisionOption.ReplaceExisting);
 
-                        Debug.WriteLine("Successfully created folder: " + Sfolder.Path);
+                        Console.WriteLine("Successfully created folder: " + Sfolder.Path);
 
                     }
 
@@ -418,7 +417,7 @@ namespace NF.IrrigationController.ESP32
             }
             catch (Exception)
             {
-                Debug.WriteLine("Directories are not supported for internal storage");
+                Console.WriteLine("Directories are not supported for internal storage");
 
             }
 
@@ -448,7 +447,7 @@ namespace NF.IrrigationController.ESP32
 
                         FileIO.WriteText(File, st);
 
-                        Debug.WriteLine("Wrote " + st.Length + " bytes to " + FilePath + " for append");
+                        Console.WriteLine("Wrote " + st.Length + " bytes to " + FilePath + " for append");
 
                     }
                     else
@@ -457,14 +456,14 @@ namespace NF.IrrigationController.ESP32
 
                         FileIO.WriteText(File, Text);
 
-                        Debug.WriteLine("Wrote " + Text.Length + " bytes to " + FilePath);
+                        Console.WriteLine("Wrote " + Text.Length + " bytes to " + FilePath);
                     }
              
             }
 
             catch (Exception ex)
             {
-                Debug.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
 
             }
         }
@@ -491,7 +490,7 @@ namespace NF.IrrigationController.ESP32
                   
                     File.Delete();
 
-                        Debug.WriteLine(Fname + " deleted");
+                        Console.WriteLine(Fname + " deleted");
                         found = true;
 
                     }
@@ -499,7 +498,7 @@ namespace NF.IrrigationController.ESP32
                 }
 
             if (found == false)
-                Debug.WriteLine(FilePath + " not found");
+                Console.WriteLine(FilePath + " not found");
          
         }
 
@@ -532,7 +531,7 @@ namespace NF.IrrigationController.ESP32
 
             foreach (var Folder in Folders)
             {
-                Debug.WriteLine("Folder Name -> " + Folder.Name);
+                Console.WriteLine("Folder Name -> " + Folder.Name);
 
                 if (DirectoryToDelete == Folder.Name)
                 {
@@ -540,7 +539,7 @@ namespace NF.IrrigationController.ESP32
 
                     Folder.Delete();
 
-                    Debug.WriteLine(Folder.Path + " deleted");
+                    Console.WriteLine(Folder.Path + " deleted");
 
                     found = true;
 
@@ -549,13 +548,13 @@ namespace NF.IrrigationController.ESP32
             }
 
             if (found == false)
-                Debug.WriteLine(DirectoryToDelete + " not found");
+                Console.WriteLine(DirectoryToDelete + " not found");
 
             }
             catch (Exception ex )
             {
 
-                Debug.WriteLine("Error deleting directory the directory must be empty: " + ex.Message);
+                Console.WriteLine("Error deleting directory the directory must be empty: " + ex.Message);
 
             }
 
@@ -585,7 +584,7 @@ namespace NF.IrrigationController.ESP32
                     
                     if(FileExists(NewFilename))
                     {
-                        Debug.WriteLine(FilePath + " can't be renamed " + NewFilename + " exists");
+                        Console.WriteLine(FilePath + " can't be renamed " + NewFilename + " exists");
 
                     }
 
@@ -593,7 +592,7 @@ namespace NF.IrrigationController.ESP32
                     {
                         File.Rename(NewFilename);
 
-                        Debug.WriteLine(FilePath + " renamed " + NewFilename);
+                        Console.WriteLine(FilePath + " renamed " + NewFilename);
 
                         found = true;
 
@@ -604,7 +603,7 @@ namespace NF.IrrigationController.ESP32
             }
 
             if (found == false)
-                Debug.WriteLine(FilePath + " not found");
+                Console.WriteLine(FilePath + " not found");
 
         }
 
@@ -626,7 +625,7 @@ namespace NF.IrrigationController.ESP32
 
                     if (Fname == File.Name)
                     {
-                        Debug.WriteLine(Fname + " exists");
+                        Console.WriteLine(Fname + " exists");
 
                         return true;
 
@@ -634,7 +633,7 @@ namespace NF.IrrigationController.ESP32
 
                 }
 
-                Debug.WriteLine(Fname + " not found");
+                Console.WriteLine(Fname + " not found");
 
                 return false;
 
@@ -643,7 +642,7 @@ namespace NF.IrrigationController.ESP32
 
             catch (Exception ex)
             {
-                Debug.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
 
                 return false;
             }
@@ -659,10 +658,10 @@ namespace NF.IrrigationController.ESP32
             if (SDCard.IsMounted)
             {
                 SDCard.Unmount();
-                Debug.WriteLine("SDCard successfully unmounted");
+                Console.WriteLine("SDCard successfully unmounted");
             }
         }
     
     }
 
-}
+//}

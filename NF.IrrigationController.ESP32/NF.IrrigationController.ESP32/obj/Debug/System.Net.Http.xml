@@ -6,7 +6,8 @@
     <members>
         <member name="F:System.Net.HttpConstants.DefaultKeepAliveMilliseconds">
             <summary>
-            Default time (ms) to keep a persistent connection open
+            The time we keep connection idle with HTTP 1.1
+            This is one minute.
             </summary>
         </member>
         <member name="F:System.Net.HttpConstants.maxHTTPLineLength">
@@ -1168,7 +1169,7 @@
         <member name="M:System.Net.HttpRequestCreator.Create(System.Uri)">
             <summary>
             Creates an HttpWebRequest. We register
-            for http, https, ws and wss URLs, and this method is called when a request
+            for HTTP and HTTPS URLs, and this method is called when a request
             needs to be created for one of those.
             </summary>
             <param name="Url">Url for request being created.</param>
@@ -1775,6 +1776,13 @@
             Updates the HTTP WEB header collection to prepare it for request.
             </summary>
         </member>
+        <member name="M:System.Net.HttpWebRequest.ConnectHostAndPort">
+            <summary>
+            Return string with remote Host and Port if port is not default.
+            Need update for HTTPS.
+            </summary>
+            <returns>String with host Url and port corresponding to target Uri.</returns>
+        </member>
         <member name="M:System.Net.HttpWebRequest.RemoveStreamFromPool(System.Net.InputNetworkStreamWrapper)">
             <summary>
             Removes the given stream from the connection pool
@@ -2071,16 +2079,6 @@
             </summary>
             <param name="disposing">Not used.</param>
         </member>
-        <member name="M:System.Net.HttpWebResponse.Close">
-            <summary>
-            Closes the response stream.
-            </summary>
-            <remarks>
-            The <see cref="M:System.Net.HttpWebResponse.Close"/> method closes the response stream and releases the connection to the resource for reuse by other requests.
-            You should not access any properties of the <see cref="T:System.Net.HttpWebResponse"/> object after the call to the <see cref="M:System.Net.HttpWebResponse.Close"/> method.
-            You must call either the <see cref="M:System.IO.Stream.Close"/> or the <see cref="M:System.Net.HttpWebResponse.Close"/> method to close the stream and release the connection for reuse. It is not necessary to call both <see cref="M:System.IO.Stream.Close"/> and <see cref="M:System.Net.HttpWebResponse.Close"/>, but doing so does not cause an error. Failure to close the stream can cause your application to run out of connections.
-            </remarks>
-        </member>
         <member name="T:System.Net.CoreResponseData">
             <summary>
             Used during parsing to capture all the information contained in the http
@@ -2259,26 +2257,6 @@
         </member>
         <member name="F:System.Net.HttpKnownHeaderNames.MimeVersion">
             <summary>The <b>MIME-Version</b> HTTP header.</summary>
-        </member>
-        <member name="F:System.Net.HttpKnownHeaderNames.SecWebSocketAccept">
-            <summary>
-            The <b>Sec-WebSocket-Accept</b> HTTP header.
-            </summary>
-        </member>
-        <member name="F:System.Net.HttpKnownHeaderNames.SecWebSocketProtocol">
-            <summary>
-            The <b>Sec-WebSocket-Protocol</b> HTTP header.
-            </summary>
-        </member>
-        <member name="F:System.Net.HttpKnownHeaderNames.SecWebSocketVersion">
-            <summary>
-            The <b>Sec-WebSocket-Version</b> HTTP header.
-            </summary>
-        </member>
-        <member name="F:System.Net.HttpKnownHeaderNames.SecWebSocketKey">
-            <summary>
-            The <b>Sec-WebSocket-Key</b> HTTP header.
-            </summary>
         </member>
         <member name="T:System.Net.HttpKnownHeaderValues">
             <summary>
@@ -2572,11 +2550,6 @@
             we turn on checking when adding special headers.
             </summary>
         </member>
-        <member name="F:System.Net.WebHeaderCollection._isWebSocket">
-            <summary>
-            true is this collection is created for a WebSocket request
-            </summary>
-        </member>
         <member name="M:System.Net.WebHeaderCollection.AddWithoutValidate(System.String,System.String)">
             <summary>
             Adds header name/value pair to collection. Does not check if
@@ -2768,7 +2741,7 @@
             Creates an empty collection of WEB headers.
             </summary>
         </member>
-        <member name="M:System.Net.WebHeaderCollection.#ctor(System.Boolean,System.Boolean)">
+        <member name="M:System.Net.WebHeaderCollection.#ctor(System.Boolean)">
             <summary>
             Private constructor, called internally.
             </summary>
@@ -3788,16 +3761,6 @@
             and easy access to the parts of the URI.
             </summary>
         </member>
-        <member name="F:System.Uri.UriSchemeHttp">
-            <summary>
-            Specifies that the URI is accessed through the Hypertext Transfer Protocol (HTTP). This field is read-only.
-            </summary>
-        </member>
-        <member name="F:System.Uri.UriSchemeHttps">
-            <summary>
-            Specifies that the URI is accessed through the Secure Hypertext Transfer Protocol (HTTPS). This field is read-only.
-            </summary>
-        </member>
         <member name="T:System.Uri.Flags">
             <summary>
             Defines flags kept in m_Flags variable.
@@ -4129,137 +4092,6 @@
             <itemref>true</itemref> if the string was well-formed in accordance
             with RFC 2396 and RFC 2732; otherwise <itemref>false</itemref>.
             </returns>
-        </member>
-        <member name="T:System.Web.HttpUtility">
-            <summary>
-            Utilities to encode and decode url
-            </summary>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlEncode(System.String)">
-            <summary>
-            Encode an URL using UTF8
-            </summary>
-            <param name="str">The URL string to encode</param>
-            <returns>The encoded string URL</returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlEncode(System.String,System.Text.Encoding)">
-            <summary>
-            Encode an URL
-            </summary>
-            <param name="str">The URL string to encode</param>
-            <param name="e">The Encoding object that specifies the encoding scheme</param>
-            <returns>The encoded string URL</returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlEncode(System.Byte[],System.Int32,System.Int32)">
-            <summary>
-            Encode an URL
-            </summary>
-            <param name="bytes">The array of bytes to encode</param>
-            <param name="offset">The position in the byte array at which to begin encoding</param>
-            <param name="count">The number of bytes to encode</param>
-            <returns>The encoded string URL</returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlEncode(System.Byte[])">
-            <summary>
-            Encode an URL
-            </summary>
-            <param name="bytes">The array of bytes to encode</param>
-            <returns>The encoded string URLL</returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlEncodeToBytes(System.String,System.Text.Encoding)">
-            <summary>
-            Encode an URL into a byte array
-            </summary>
-            <param name="str">The URL string to encode</param>
-            <param name="e"></param>
-            <returns>The encoded byte array</returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlEncodeToBytes(System.Byte[])">
-            <summary>
-            Encode a byte array URL into a byte array
-            </summary>
-            <param name="bytes">The array of bytes to encode</param>
-            <returns>The encoded byte array</returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlEncodeToBytes(System.Byte[],System.Int32,System.Int32)">
-            <summary>
-            Encode a byte array URL into a byte array
-            </summary>
-            <param name="bytes">The array of bytes to encode</param>
-            <param name="offset">The position in the byte array at which to begin encoding</param>
-            <param name="count">The number of bytes to encode</param>
-            <returns>The encoded byte array</returns>		
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlDecode(System.String)">
-            <summary>
-            Decode an UTF8 encoded URL
-            </summary>
-            <param name="url">The encoded URL</param>
-            <returns>The decoded URL</returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlDecode(System.String,System.Text.Encoding)">
-            <summary>
-            Decode an URL using the specified encoding
-            </summary>
-            <param name="str">The string to encode</param>
-            <param name="e">The Encoding object that specifies the encoding scheme</param>
-            <returns>The encoded string</returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlDecode(System.Byte[],System.Int32,System.Int32,System.Text.Encoding)">
-            <summary>
-            Decode an encoded URL
-            </summary>
-            <param name="bytes">The array of bytes to decode</param>
-            <param name="offset">The position in the byte to begin decoding</param>
-            <param name="count">The number of bytes to decode</param>
-            <param name="e">The Encoding object that specifies the encoding scheme</param>
-            <returns>The decoded URL</returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlDecode(System.Byte[],System.Text.Encoding)">
-            <summary>
-            Decode an encoded URL
-            </summary>
-            <param name="bytes">The array of bytes to decode</param>
-            <param name="e">The Encoding object that specifies the encoding scheme</param>
-            <returns>The decoded URL</returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlDecodeToBytes(System.Byte[],System.Int32,System.Int32)">
-            <summary>
-            Decode bytes array to byte array
-            </summary>
-            <param name="bytes">The array of bytes to decode</param>
-            <param name="offset">The position in the byte array at which to begin decoding</param>
-            <param name="count">The number of bytes to decode</param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlDecodeToBytes(System.String,System.Text.Encoding)">
-            <summary>
-            Decode bytes array to byte array
-            </summary>
-            <param name="str">The string to encode</param>
-            <param name="e">The Encoding object that specifies the encoding scheme</param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlDecodeToBytes(System.String)">
-            <summary>
-            Decode bytes array to byte array in UTF8
-            </summary>
-            <param name="str">The string to encode</param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.UrlDecodeToBytes(System.Byte[])">
-            <summary>
-            Decode bytes array to byte array
-            </summary>
-            <param name="bytes">The array of bytes to decode</param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Web.HttpUtility.HexToInt(System.Char)">
-            <summary>
-            Get the int value of a char
-            </summary>
-            <param name="h">a char</param>
-            <returns>The int value of the char</returns>
         </member>
     </members>
 </doc>

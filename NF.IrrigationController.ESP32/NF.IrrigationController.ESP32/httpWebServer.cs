@@ -14,6 +14,7 @@ namespace NF.IrrigationController.ESP32
 {
 
     /// <summary>
+    /// Thanks to Laurent Ellerbach who wrote the networker helper that simplified in improved this project.
     /// HttpWebServer is a simple way to use web pages to communicate with your project
     /// This project has been tested with the ESP DevKit C and Pico D4
     /// The nanoFramework samples are a great resource for this project https://github.com/nanoframework/Samples

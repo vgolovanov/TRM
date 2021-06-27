@@ -1,7 +1,7 @@
 # Tiny Rain Maker nanoFramework Irrigation Controller
 ![ScreenShot](https://github.com/Dweaver309/TRM/blob/master/DesignFiles/Images/TRMFront.jpg )
 
-#  ow to use Tiny Rain Maker 
+#  How to use Tiny Rain Maker 
 * Setup nanoFramework https://docs.nanoframework.net/content/getting-started-guides/index.html
 * Compile the source code to an Espressif ESP32 dev c board
 * Design your PCB board using the provided schematic  https://github.com/Dweaver309/TRM/blob/master/DesignFiles/Schematic/TRMSchematic.pdf

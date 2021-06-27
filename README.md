@@ -1,4 +1,4 @@
-# Tiny Rain Maker nanoFramework Irrigation Controller
+# Tiny Rain Maker Irrigation Controller
 ![ScreenShot](https://github.com/Dweaver309/TRM/blob/master/DesignFiles/Images/TRMNoSdCard.jpg )
 
 #  How to use Tiny Rain Maker 

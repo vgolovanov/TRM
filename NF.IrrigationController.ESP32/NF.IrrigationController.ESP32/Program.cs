@@ -46,7 +46,7 @@ namespace NF.IrrigationController.ESP32
 
             // Password
             // Replace with your SSID and Password
-            string Password = "3098280065";
+            string Password = "password";
 
             if (SD.FileExists("Password.txt"))
             {
@@ -56,7 +56,7 @@ namespace NF.IrrigationController.ESP32
 
            // SSID
            // Replace with SSID
-            string SSID = "weaver";
+            string SSID = "ssid";
 
             if (SD.FileExists("SSID.txt"))
             {

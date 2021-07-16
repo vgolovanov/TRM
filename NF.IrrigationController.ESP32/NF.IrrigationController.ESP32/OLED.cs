@@ -16,6 +16,7 @@
 using System;
 using Windows.Devices.I2c;
 using System.Threading;
+using System.Diagnostics;
 
 namespace NF.IrrigationController.ESP32
 {
@@ -276,7 +277,7 @@ namespace NF.IrrigationController.ESP32
 
             catch (Exception)
             {
-                Console.WriteLine("CenterString Error ");
+                Debug.WriteLine("CenterString Error ");
             }
 
             return Str;

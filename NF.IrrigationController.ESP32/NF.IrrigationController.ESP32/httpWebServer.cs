@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Net.NetworkInformation;
 using System.Threading;
-
+using System.Diagnostics;
 
 namespace NF.IrrigationController.ESP32
 {
@@ -54,7 +54,7 @@ namespace NF.IrrigationController.ESP32
             //Request and bind to an IP from DHCP server
             socket.Bind(new IPEndPoint(IPAddress.Any, 80));
 
-            Console.WriteLine(NetworkInterface.GetAllNetworkInterfaces()[0].IPv4Address);
+            Debug.WriteLine(NetworkInterface.GetAllNetworkInterfaces()[0].IPv4Address);
 
             // Start listen for web requests
             socket.Listen(10);
@@ -65,7 +65,7 @@ namespace NF.IrrigationController.ESP32
 
             
 
-            Console.WriteLine("System time is:" + DateTime.UtcNow.ToString());
+            Debug.WriteLine("System time is:" + DateTime.UtcNow.ToString());
 
             // Create and start a thead for listening for server requests
             Thread tListenforRequest = new Thread(ListenForRequest);
@@ -130,7 +130,7 @@ namespace NF.IrrigationController.ESP32
                 {
 
                     // Network interface is Wi-Fi
-                    Console.WriteLine("Network connection is: Wi-Fi");
+                    Debug.WriteLine("Network connection is: Wi-Fi");
 
                     Wireless80211Configuration wc = Wireless80211Configuration.GetAllWireless80211Configurations()[ni.SpecificConfigId];
 
@@ -162,7 +162,7 @@ namespace NF.IrrigationController.ESP32
                 {
 
                     // Network interface is Ethernet
-                    Console.WriteLine("Network connection is: Ethernet");
+                    Debug.WriteLine("Network connection is: Ethernet");
 
                     ni.EnableDhcp();
 
@@ -185,7 +185,7 @@ namespace NF.IrrigationController.ESP32
         /// </summary>
         private void WaitIP()
         {
-            Console.WriteLine("Waiting for IP...");
+            Debug.WriteLine("Waiting for IP...");
 
 
             while (true)
@@ -199,7 +199,7 @@ namespace NF.IrrigationController.ESP32
                     if (ni.IPv4Address[0] != '0')
                     {
 
-                        Console.WriteLine($"We have an IP: {ni.IPv4Address}");
+                        Debug.WriteLine($"We have an IP: {ni.IPv4Address}");
 
                         break;
 

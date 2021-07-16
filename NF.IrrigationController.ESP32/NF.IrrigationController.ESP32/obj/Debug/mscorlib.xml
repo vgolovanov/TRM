@@ -4,6 +4,61 @@
         <name>mscorlib</name>
     </assembly>
     <members>
+        <member name="T:System.Action">
+            <summary>
+            Encapsulates a method that has no parameters and does not return a value.
+            </summary>
+        </member>
+        <member name="T:System.Action`1">
+            <summary>
+            Encapsulates a method that has a single parameter and does not return a value.
+            </summary>
+            <typeparam name="T">The type of the parameter of the method that this delegate encapsulates.
+            This type parameter is covariant.That is, you can use either the type you specified or any type that is more derived.For more information about covariance and contravariance, see <see href="https://docs.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance">Covariance and Contravariance in Generics</see>.</typeparam>
+            <param name="obj">The parameter of the method that this delegate encapsulates.</param>
+        </member>
+        <member name="T:System.Action`2">
+            <summary>
+            Encapsulates a method that has a single parameter and does not return a value.
+            </summary>
+            <typeparam name="T1">The type of the first parameter of the method that this delegate encapsulates.
+            This type parameter is covariant.That is, you can use either the type you specified or any type that is more derived.For more information about covariance and contravariance, see <see href="https://docs.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance">Covariance and Contravariance in Generics</see>.</typeparam>
+            <typeparam name="T2">The type of the second parameter of the method that this delegate encapsulates.
+            This type parameter is covariant.That is, you can use either the type you specified or any type that is more derived.For more information about covariance and contravariance, see <see href="https://docs.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance">Covariance and Contravariance in Generics</see>.</typeparam>
+            <param name="arg1">The first parameter of the method that this delegate encapsulates.</param>
+            <param name="arg2">The second parameter of the method that this delegate encapsulates.</param>
+        </member>
+        <member name="T:System.Func`1">
+            <summary>
+            Encapsulates a method that has no parameters and returns a value of the type specified by the <typeparamref name="TResult"/> parameter.
+            </summary>
+            <typeparam name="TResult">The type of the return value of the method that this delegate encapsulates.
+            This type parameter is covariant.That is, you can use either the type you specified or any type that is more derived.For more information about covariance and contravariance, see <see href="https://docs.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance">Covariance and Contravariance in Generics</see>.</typeparam>
+            <returns>The return value of the method that this delegate encapsulates.</returns>
+        </member>
+        <member name="T:System.Func`2">
+            <summary>
+            Encapsulates a method that has one parameter and returns a value of the type specified by the <typeparamref name="TResult"/> parameter.
+            </summary>
+            <typeparam name="T">The type of the parameter of the method that this delegate encapsulates.
+            This type parameter is covariant.That is, you can use either the type you specified or any type that is more derived.For more information about covariance and contravariance, see <see href="https://docs.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance">Covariance and Contravariance in Generics</see>.</typeparam>
+            <typeparam name="TResult">The type of the return value of the method that this delegate encapsulates.
+            This type parameter is covariant.That is, you can use either the type you specified or any type that is more derived.For more information about covariance and contravariance, see <see href="https://docs.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance">Covariance and Contravariance in Generics</see>.</typeparam>
+            <param name="arg">The parameter of the method that this delegate encapsulates.</param>
+            <returns>The return value of the method that this delegate encapsulates.</returns>
+        </member>
+        <member name="T:System.Func`3">
+            <summary>
+            Encapsulates a method that has one parameter and returns a value of the type specified by the <typeparamref name="TResult"/> parameter.
+            </summary>
+            <typeparam name="T1">The type of the parameter of the method that this delegate encapsulates.</typeparam>
+            <typeparam name="T2">The type of the parameter of the method that this delegate encapsulates.</typeparam>
+            <typeparam name="TResult">The type of the return value of the method that this delegate encapsulates.
+            This type parameter is covariant.That is, you can use either the type you specified or any type that is more derived.For more information about covariance and contravariance, see <see href="https://docs.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance">Covariance and Contravariance in Generics</see>.</typeparam>
+            <param name="arg1">The first parameter of the method that this delegate encapsulates.</param>
+            <param name="arg2">The second parameter of the method that this delegate encapsulates.</param>
+            <returns>The return value of the method that this delegate encapsulates.</returns>
+        </member>
         <member name="T:System.AppDomainUnloadedException">
             <summary>
             The exception that is thrown when an attempt is made to access an unloaded application domain.
@@ -1172,6 +1227,13 @@
             Converts a base data type to another base data type.
             </summary>
         </member>
+        <member name="M:System.Convert.ToBoolean(System.Byte)">
+            <summary>
+            Converts the value of the specified 8-bit unsigned integer to an equivalent Boolean value.
+            </summary>
+            <param name="value">The 8-bit unsigned integer to convert.</param>
+            <returns><see langword="true"/> if <paramref name="value"/> is not zero; otherwise, <see langword="false"/>.</returns>
+        </member>
         <member name="M:System.Convert.ToChar(System.UInt16)">
             <summary>
             Converts the value of the specified 16-bit unsigned integer to its equivalent Unicode character.
@@ -1206,6 +1268,13 @@
             </remarks>
             <exception cref="T:System.ArgumentException"><paramref name="fromBase"/> is not 2, 8, 10, or 16.</exception>
             <exception cref="T:System.NotImplementedException">If the platform doesn't have support to convert from non-base 10 values.</exception>
+        </member>
+        <member name="M:System.Convert.ToByte(System.Boolean)">
+            <summary>
+            Converts the specified <see cref="T:System.Boolean"/> value to the equivalent 8-bit unsigned integer.
+            </summary>
+            <param name="value">The <see cref="T:System.Boolean"/> value to convert.</param>
+            <returns>The number 1 if <paramref name="value"/> is <see langword="true"/>; otherwise, 0.</returns>
         </member>
         <member name="M:System.Convert.ToInt16(System.String,System.Int32)">
             <summary>
@@ -1869,63 +1938,6 @@
             </summary>
             <remarks>DBNull is a singleton class, which means only this instance of this class can exist.</remarks>
         </member>
-        <member name="T:System.Decimal">
-            <summary>
-            Represents a decimal number.
-            </summary>
-        </member>
-        <member name="M:System.Decimal.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of Decimal to the value of the specified 32-bit signed integer.
-            </summary>
-            <param name="value">The value to represent as a Decimal. </param>
-        </member>
-        <member name="M:System.Decimal.#ctor(System.UInt32)">
-            <summary>
-            Initializes a new instance of Decimal to the value of the specified 32-bit unsigned integer.
-            </summary>
-            <param name="value">The value to represent as a Decimal. </param>
-        </member>
-        <member name="M:System.Decimal.#ctor(System.Int64)">
-            <summary>
-            Initializes a new instance of Decimal to the value of the specified 64-bit signed integer.
-            </summary>
-            <param name="value">The value to represent as a Decimal. </param>
-        </member>
-        <member name="M:System.Decimal.#ctor(System.UInt64)">
-            <summary>
-            Initializes a new instance of Decimal to the value of the specified 64-bit unsigned integer.
-            </summary>
-            <param name="value">The value to represent as a Decimal. </param>
-        </member>
-        <member name="M:System.Decimal.#ctor(System.Single)">
-            <summary>
-            Initializes a new instance of Decimal to the value of the specified single-precision floating-point number.
-            </summary>
-            <param name="value">The value to represent as a Decimal. </param>
-        </member>
-        <member name="M:System.Decimal.#ctor(System.Double)">
-            <summary>
-            Initializes a new instance of Decimal to the value of the specified double-precision floating-point number.
-            </summary>
-            <param name="value">The value to represent as a Decimal. </param>
-        </member>
-        <member name="M:System.Decimal.#ctor(System.Int32[])">
-            <summary>
-            Initializes a new instance of Decimal to a decimal value represented in binary and contained in a specified array.
-            </summary>
-            <param name="bits">An array of 32-bit signed integers containing a representation of a decimal value. </param>
-        </member>
-        <member name="M:System.Decimal.#ctor(System.Int32,System.Int32,System.Int32,System.Boolean,System.Byte)">
-            <summary>
-            Initializes a new instance of Decimal from parameters specifying the instance's constituent parts.
-            </summary>
-            <param name="lo">The low 32 bits of a 96-bit integer. </param>
-            <param name="mid">The middle 32 bits of a 96-bit integer. </param>
-            <param name="hi">The high 32 bits of a 96-bit integer. </param>
-            <param name="isNegative">The sign of the number; true is negative, false is positive.</param>
-            <param name="scale">A power of 10 ranging from 0 to 28. </param>
-        </member>
         <member name="T:System.Delegate">
             <summary>
             Represents a delegate, which is a data structure that refers to a static method or to a class instance and an instance method of that class.
@@ -2011,6 +2023,50 @@
             Gets the conditional compilation symbol that is associated with the ConditionalAttribute attribute.
             </summary>
             <value>A string that specifies the case-sensitive conditional compilation symbol that is associated with the ConditionalAttribute attribute.</value>
+        </member>
+        <member name="T:System.Diagnostics.Debug">
+            <summary>
+            Provides a set of methods and properties that help debug your code.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.Debug.Assert(System.Boolean)">
+            <summary>
+            Causes a break in execution if the specified assertion (condition) evaluates to false.
+            </summary>
+            <param name="condition">The condition to be evaluated. If the value is false, program execution stops.</param>
+        </member>
+        <member name="M:System.Diagnostics.Debug.Assert(System.Boolean,System.String)">
+            <summary>
+            Causes a break in execution if the specified assertion (condition) evaluates to false.
+            </summary>
+            <param name="condition">The condition to be evaluated. If the value is false, program execution stops.</param>
+            <param name="message">The text to be output if the assertion is false.</param>
+        </member>
+        <member name="M:System.Diagnostics.Debug.Assert(System.Boolean,System.String,System.String)">
+            <summary>
+            Causes a break in execution if the specified assertion (condition) evaluates to false.
+            </summary>
+            <param name="condition">The condition to be evaluated. If the value is false, program execution stops.</param>
+            <param name="message">The text to be output if the assertion is false.</param>
+            <param name="detailedMessage">The detailed message to be displayed if the assertion is false.</param>
+        </member>
+        <member name="M:System.Diagnostics.Debug.Write(System.String)">
+            <summary>
+            Writes a message to the trace listeners in the Listeners collection.
+            </summary>
+            <param name="message">A message to write.</param>
+            <remarks>
+            In nanoFramework implementation the message is output to Visual Studio debugger window.
+            </remarks>
+        </member>
+        <member name="M:System.Diagnostics.Debug.WriteLine(System.String)">
+            <summary>
+            Writes a message followed by a line terminator to the trace listeners in the Listeners collection.
+            </summary>
+            <param name="message">A message to write.</param>
+            <remarks>
+            In nanoFramework implementation the message is output to Visual Studio debugger window.
+            </remarks>
         </member>
         <member name="T:System.Diagnostics.Debugger">
             <summary>
@@ -2396,6 +2452,14 @@
             Provides the base class for enumerations.
             </summary>
         </member>
+        <member name="M:System.Enum.HasFlag(System.Enum)">
+            <summary>
+            Determines whether one or more bit fields are set in the current instance.
+            </summary>
+            <param name="flag">An enumeration value.</param>
+            <returns><see langword="true"/> if the bit field or bit fields that are set in flag are also set in the current instance; otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentException"><paramref name="flag"/> is a different type than the current instance.</exception>
+        </member>
         <member name="M:System.Enum.ToString">
             <summary>
             Converts the value of this instance to its equivalent string representation.
@@ -2403,22 +2467,35 @@
             <returns>The string representation of the value of this instance.</returns>
             <remarks>Available only in mscorlib build with support for System.Reflection.</remarks>
         </member>
-        <member name="T:System.Console">
+        <member name="T:System.EventArgs">
             <summary>
-            Represents the standard input, output, and error streams for console applications. This class cannot be inherited.
+            Represents the base class for classes that contain event data, and provides a value to use for events that do not include event data.
             </summary>
         </member>
-        <member name="M:System.Console.Write(System.String)">
+        <member name="F:System.EventArgs.Empty">
             <summary>
-            Writes the specified string value to the standard output stream.
+            Provides a value to use with events that do not have event data.
             </summary>
-            <param name="value">The value to write.</param>
         </member>
-        <member name="M:System.Console.WriteLine(System.String)">
+        <member name="M:System.EventArgs.#ctor">
             <summary>
-            Writes the specified string value, followed by the current line terminator, to the standard output stream.
+            Initializes a new instance of the <see cref="T:System.EventArgs"/> class.
             </summary>
-            <param name="value">The value to write.</param>
+        </member>
+        <member name="T:System.EventHandler">
+            <summary>
+            Represents the method that will handle an event that has no event data.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">An object that contains no event data.</param>
+        </member>
+        <member name="T:System.EventHandler`1">
+            <summary>
+            Represents the method that will handle an event when the event provides data.
+            </summary>
+            <typeparam name="TEventArgs">The type of the event data generated by the event.</typeparam>
+            <param name="sender">The source of the event.</param>
+            <param name="e">An object that contains the event data.</param>
         </member>
         <member name="T:System.Exception">
             <summary>
@@ -2483,6 +2560,29 @@
             <summary>
             Indicates that an enumeration can be treated as a bit field; that is, a set of flags.
             </summary>
+        </member>
+        <member name="T:System.FormatException">
+            <summary>
+            The exception that is thrown for invalid casting or explicit conversion.
+            </summary>
+        </member>
+        <member name="M:System.FormatException.#ctor">
+            <summary>
+            Initializes a new instance of the FormatException class.
+            </summary>
+        </member>
+        <member name="M:System.FormatException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the FormatException class with a specified error message.
+            </summary>
+            <param name="message">The message that describes the error. </param>
+        </member>
+        <member name="M:System.FormatException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the FormatException class with a specified error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception. </param>
+            <param name="innerException">The exception that is the cause of the current exception. If the innerException parameter is not a null reference (Nothing in Visual Basic), the current exception is raised in a catch block that handles the inner exception. </param>
         </member>
         <member name="T:System.GC">
             <summary>
@@ -3802,6 +3902,7 @@
             </summary>
             <param name="rawAssembly">A byte array that is a COFF-based image containing an emitted assembly.</param>
             <returns>The loaded assembly.</returns>
+            <exception cref="T:System.ArgumentException"><paramref name="rawAssembly"/> is not a valid assembly.</exception>
         </member>
         <member name="T:System.Reflection.AssemblyCultureAttribute">
             <summary>
@@ -4454,7 +4555,7 @@
         </member>
         <member name="P:System.Reflection.MemberInfo.MemberType">
             <summary>
-            When overridden in a derived class, gets a MemberTypes value indicating the type of the member — method, constructor, event, and so on.
+            When overridden in a derived class, gets a MemberTypes value indicating the type of the member method, constructor, event, and so on.
             </summary>
             <value>
             A MemberTypes value indicating the type of member.
@@ -5273,10 +5374,102 @@
             <param name="result">When this method returns, contains single-precision floating-point number equivalent to the numeric value or symbol contained in s, if the conversion succeeded, or zero if the conversion failed. The conversion fails if the s parameter is <see langword="null"/> or Empty, is not a number in a valid format, or represents a number less than <see cref="F:System.Single.MinValue"/> or greater than <see cref="F:System.Single.MaxValue"/>. This parameter is passed uninitialized; any value originally supplied in result will be overwritten.</param>
             <returns><see langword="true"/> if s was converted successfully; otherwise, <see langword="false"/>.</returns>
         </member>
+        <member name="T:System.SpanByte">
+            <summary>
+            Provides a type- and memory-safe representation of a contiguous region of arbitrary byte array
+            </summary>
+        </member>
+        <member name="M:System.SpanByte.#ctor(System.Byte[])">
+            <summary>
+            Creates a new System.SpanByte object over the entirety of a specified array.
+            </summary>
+            <param name="array">The array from which to create the System.Span object.</param>
+        </member>
+        <member name="M:System.SpanByte.#ctor(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Creates a new System.SpanByte object that includes a specified number of elements
+            of an array starting at a specified index.
+            </summary>
+            <param name="array">The source array.</param>
+            <param name="start">The index of the first element to include in the new System.Span</param>
+            <param name="length">The number of elements to include in the new System.Span</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            array is null, but start or length is non-zero. -or- start is outside the bounds
+            of the array. -or- start and length exceeds the number of elements in the array.
+            </exception>
+        </member>
+        <member name="P:System.SpanByte.Item(System.Int32)">
+            <summary>
+            Gets the element at the specified zero-based index.
+            </summary>
+            <param name="index">The zero-based index of the element.</param>
+            <returns>The element at the specified index.</returns>
+        </member>
+        <member name="P:System.SpanByte.Empty">
+            <summary>
+            Returns an empty System.Span object.
+            </summary>
+        </member>
+        <member name="P:System.SpanByte.Length">
+            <summary>
+            Returns the length of the current span.
+            </summary>
+        </member>
+        <member name="P:System.SpanByte.IsEmpty">
+            <summary>
+            Returns a value that indicates whether the current System.Span is empty.
+            true if the current span is empty; otherwise, false.
+            </summary>
+        </member>
+        <member name="M:System.SpanByte.CopyTo(System.SpanByte)">
+            <summary>
+            Copies the contents of this System.Span into a destination System.Span.
+            </summary>
+            <param name="destination"> The destination System.Span object.</param>
+            <exception cref="T:System.ArgumentException">
+            destination is shorter than the source System.Span.
+            </exception>
+        </member>
+        <member name="M:System.SpanByte.Slice(System.Int32)">
+            <summary>
+            Forms a slice out of the current span that begins at a specified index.
+            </summary>
+            <param name="start">The index at which to begin the slice.</param>
+            <returns>A span that consists of all elements of the current span from start to the end of the span.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">start is less than zero or greater than System.Span.Length.</exception>
+        </member>
+        <member name="M:System.SpanByte.Slice(System.Int32,System.Int32)">
+            <summary>
+            Forms a slice out of the current span starting at a specified index for a specified length.
+            </summary>
+            <param name="start">The index at which to begin this slice.</param>
+            <param name="length">The desired length for the slice.</param>
+            <returns>A span that consists of length elements from the current span starting at start.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">start or start + length is less than zero or greater than System.Span.Length.</exception>
+        </member>
+        <member name="M:System.SpanByte.ToArray">
+            <summary>
+            Copies the contents of this span into a new array.
+            </summary>
+            <returns> An array containing the data in the current span.</returns>
+        </member>
+        <member name="M:System.SpanByte.op_Implicit(System.Byte[])~System.SpanByte">
+            <summary>
+            Implicit conversion of an array to a span of byte
+            </summary>
+            <param name="array"></param>
+        </member>
         <member name="T:System.String">
             <summary>
             Represents text as a sequence of UTF-16 code units.
             </summary>
+        </member>
+        <member name="M:System.String.GetEnumerator">
+            <summary>
+            **Not supported in NanoFramework**  
+            Return an enumerator that iterate on each char of the string.
+            </summary>
+            <returns>An IEnumerator object that can be used to iterate through the collection.</returns>
         </member>
         <member name="F:System.String.Empty">
             <summary>
@@ -5711,6 +5904,35 @@
             <param name="paddingChar">A Unicode padding character.</param>
             <returns></returns>
         </member>
+        <member name="M:System.String.IsNullOrEmpty(System.String)">
+            <summary>
+            Indicates whether the specified string is <see langword="null"/> or an empty string ("").
+            </summary>
+            <param name="value">The string to test.</param>
+            <returns><see langword="true"/> if the value parameter is <see langword="null"/> or an empty string (""); otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:System.String.Contains(System.String)">
+            <summary>
+            Returns a value indicating whether a specified substring occurs within this string.
+            </summary>
+            <param name="value">The string to seek.</param>
+            <returns><see langword="true"/> if the <paramref name="value"/> parameter occurs within this string, or if <paramref name="value"/> is the empty string (""); otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:System.String.StartsWith(System.String)">
+            <summary>
+            Determines whether the beginning of this string instance matches the specified string.
+            </summary>
+            <param name="value">The string to compare.</param>
+            <returns><see langword="true"/> if <paramref name="value"/> matches the beginning of this string; otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:System.String.EndsWith(System.String)">
+            <summary>
+            Determines whether the end of this string instance matches the specified string.
+            </summary>
+            <param name="value">The string to compare to the substring at the end of this instance.</param>
+            <returns><see langword="true"/> if <paramref name="value"/> matches the end of this instance; otherwise, <see langword="false"/>.</returns>
+        </member>
         <member name="T:System.SystemException">
             <summary>
             Serves as the base class for system exceptions namespace.
@@ -5949,6 +6171,16 @@
             The system clock ticks at a specific rate called the clock resolution. The actual timeout might not be exactly the specified timeout, because the specified timeout will be adjusted to coincide with clock ticks. 
             </remarks>
         </member>
+        <member name="M:System.Threading.Thread.SpinWait(System.Int32)">
+            <summary>
+            Causes a thread to wait the number of times defined by the <paramref name="iterations"/> parameter.
+            </summary>
+            <param name="iterations">A 32-bit signed integer that defines how long a thread is to wait.</param>
+            <remarks>
+            The <see cref="M:System.Threading.Thread.SpinWait(System.Int32)"/> method is useful for implementing locks. Classes in the .NET Framework, such as <see cref="T:System.Threading.Monitor"/> use this method internally. <see cref="M:System.Threading.Thread.SpinWait(System.Int32)"/> essentially puts the processor into a very tight loop, with the loop count specified by the <paramref name="iterations"/> parameter. The duration of the wait therefore depends on the speed of the processor.
+            Contrast this with the <see cref="M:System.Threading.Thread.Sleep(System.Int32)"/> method. A thread that calls <see cref="M:System.Threading.Thread.Sleep(System.Int32)"/> yields the rest of its current slice of processor time, even if the specified interval is zero. Specifying a non-zero interval for <see cref="M:System.Threading.Thread.Sleep(System.Int32)"/> removes the thread from consideration by the thread scheduler until the time interval has elapsed.
+            </remarks>
+        </member>
         <member name="P:System.Threading.Thread.CurrentThread">
             <summary>
             Gets the currently running thread.
@@ -6038,8 +6270,8 @@
         </member>
         <member name="F:System.Threading.ThreadState.WaitSleepJoin">
             <summary>
-            The thread is blocked. This could be the result of calling Thread.Sleep or Thread.Join, of requesting a lock — for example, by calling Monitor.Enter 
-            or Monitor.Wait — or of waiting on a thread synchronization object such as ManualResetEvent.
+            The thread is blocked. This could be the result of calling Thread.Sleep or Thread.Join, of requesting a lock � for example, by calling Monitor.Enter 
+            or Monitor.Wait or of waiting on a thread synchronization object such as ManualResetEvent.
             </summary>
         </member>
         <member name="F:System.Threading.ThreadState.Suspended">
@@ -6076,6 +6308,59 @@
             For threading methods that accept a timeout parameter of type <see cref="T:System.TimeSpan"/>, such as <see cref="M:System.Threading.Thread.Sleep(System.TimeSpan)"/> and <see cref="M:System.Threading.Thread.Join(System.TimeSpan)"/>, this value is used to suspend the thread indefinitely. However, in most cases, we recommend that you use other <see cref="N:System.Threading"/> classes such as <see cref="T:System.Threading.AutoResetEvent"/>, <see cref="T:System.Threading.ManualResetEvent"/>, <see cref="T:System.Threading.Monitor"/> or <see cref="T:System.Threading.WaitHandle"/> instead to synchronize threads or manage resources. 
             The value of this field is -00:00:00.0010000, or -1 millisecond.
             </remarks>
+        </member>
+        <member name="T:System.Threading.SpinWait">
+            <summary>
+            Provides support for spin-based waiting.
+            </summary>
+            <remarks>
+            <para>
+            <see cref="T:System.Threading.SpinWait"/> encapsulates common spinning logic. On single-processor machines, yields are
+            always used instead of busy waits, and on computers with Intel™ processors employing Hyper-Threading™
+            technology, it helps to prevent hardware thread starvation. SpinWait encapsulates a good mixture of
+            spinning and true yielding.
+            </para>
+            <para>
+            <see cref="T:System.Threading.SpinWait"/> is a value type, which means that low-level code can utilize SpinWait without
+            fear of unnecessary allocation overheads. SpinWait is not generally useful for ordinary applications.
+            In most cases, you should use the synchronization classes provided by the .NET Framework, such as
+            <see cref="T:System.Threading.Monitor"/>. For most purposes where spin waiting is required, however,
+            the <see cref="T:System.Threading.SpinWait"/> type should be preferred over the <see
+            cref="M:System.Threading.Thread.SpinWait(System.Int32)"/> method.
+            </para>
+            <para>
+            While SpinWait is designed to be used in concurrent applications, it is not designed to be
+            used from multiple threads concurrently.  SpinWait's members are not thread-safe.  If multiple
+            threads must spin, each should use its own instance of SpinWait.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:System.Threading.SpinWait.SpinOnce">
+            <summary>
+            Performs a single spin.
+            </summary>
+            <remarks>
+            This is typically called in a loop, and may change in behavior based on the number of times a
+            <see cref="M:System.Threading.SpinWait.SpinOnce"/> has been called thus far on this instance.
+            </remarks>
+        </member>
+        <member name="M:System.Threading.SpinWait.SpinUntil(System.TimeSpan)">
+            <summary>
+            Spins until the specified timeout is expired.
+            </summary>
+            <param name="timeout">
+            A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout"/> is a negative number
+            other than -1 milliseconds, which represents an infinite time-out 
+            -or- timeout is greater than <see cref="F:System.Int32.MaxValue"/>.</exception>
+        </member>
+        <member name="M:System.Threading.SpinWait.SpinUntil(System.Int32)">
+            <summary>
+            Spins until the specified timeout is expired.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is a 
+            negative number other than -1, which represents an infinite time-out.</exception>
         </member>
         <member name="T:System.Threading.TimerCallback">
             <summary>
@@ -6132,7 +6417,7 @@
         </member>
         <member name="T:System.Threading.WaitHandle">
             <summary>
-            Encapsulates operating system–specific objects that wait for exclusive access to shared resources.
+            Encapsulates operating system specific objects that wait for exclusive access to shared resources.
             </summary>
         </member>
         <member name="F:System.Threading.WaitHandle.WaitTimeout">
@@ -6185,6 +6470,29 @@
             </summary>
             <param name="waitHandles">A WaitHandle array containing the objects for which the current instance will wait.</param>
             <returns>The array index of the object that satisfied the wait.</returns>
+        </member>
+        <member name="T:System.TimeoutException">
+            <summary>
+            The exception that is thrown when the time allotted for a process or operation has expired.
+            </summary>
+        </member>
+        <member name="M:System.TimeoutException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.TimeoutException"/> class.
+            </summary>
+        </member>
+        <member name="M:System.TimeoutException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.TimeoutException"/> class with a specified error message.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:System.TimeoutException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.TimeoutException"/> class with a specified error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception. If the innerException parameter is not a null reference (Nothing in Visual Basic), the current exception is raised in a catch block that handles the inner exception.</param>
         </member>
         <member name="T:System.TimeSpan">
             <summary>

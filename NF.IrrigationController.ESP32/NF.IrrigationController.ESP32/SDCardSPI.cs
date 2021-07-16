@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using nanoFramework.Hardware.Esp32;
 using Windows.Storage;
 using Windows.Storage.Devices;
@@ -80,7 +81,7 @@ using Windows.Storage.Streams;
 
                     if (SDCard.IsMounted)
                     {
-                        Console.WriteLine("Success SDCard is mounted");
+                        Debug.WriteLine("Success SDCard is mounted");
 
                         StorageFolder externalDevices = Windows.Storage.KnownFolders.RemovableDevices;
 
@@ -95,7 +96,7 @@ using Windows.Storage.Streams;
 
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Failed to mount SDCard \n" + ex.Message);
+                    Debug.WriteLine("Failed to mount SDCard \n" + ex.Message);
                 }
 
             }
@@ -135,7 +136,7 @@ using Windows.Storage.Streams;
 
                 i += 1;
                 
-                Console.WriteLine("Files -> " + file.Path);
+                Debug.WriteLine("Files -> " + file.Path);
 
             }
 
@@ -202,7 +203,7 @@ using Windows.Storage.Streams;
                       
                        dataReader.ReadBytes(cBuf);
                        
-                        Console.WriteLine($"Buffer length = {cBuf.Length}");
+                        Debug.WriteLine($"Buffer length = {cBuf.Length}");
                        
                         return cBuf;
 
@@ -216,7 +217,7 @@ using Windows.Storage.Streams;
 
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                Debug.WriteLine("Error: " + ex.Message);
 
                 return ErrorByte;
               
@@ -252,7 +253,7 @@ using Windows.Storage.Streams;
 
                         FileIO.WriteBytes(File, writeBuffer);
 
-                        Console.WriteLine("Wrote " + writeBuffer.Length + " bytes to " + FilePath + " for append");
+                        Debug.WriteLine("Wrote " + writeBuffer.Length + " bytes to " + FilePath + " for append");
 
                     }
 
@@ -262,14 +263,14 @@ using Windows.Storage.Streams;
 
                         FileIO.WriteBytes(File, Buffer);
 
-                        Console.WriteLine("Wrote " + Buffer.Length + " bytes to " + FilePath);
+                        Debug.WriteLine("Wrote " + Buffer.Length + " bytes to " + FilePath);
 
                     }
              
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error writing binary file: " + ex.Message);
+                Debug.WriteLine("Error writing binary file: " + ex.Message);
 
             }
         }
@@ -285,7 +286,7 @@ using Windows.Storage.Streams;
 
             if(IsInternalStorage)
             {
-                Console.WriteLine("\n Directories are currently not supported for internal storage.\n");
+                Debug.WriteLine("\n Directories are currently not supported for internal storage.\n");
                 
             }
            
@@ -316,7 +317,7 @@ using Windows.Storage.Streams;
 
                 i += 1;
 
-                Console.WriteLine($"Folder ->{folder.Name}");
+                Debug.WriteLine($"Folder ->{folder.Name}");
 
             }
 
@@ -341,7 +342,7 @@ using Windows.Storage.Streams;
             if (FilePath.IndexOf(slash) == -1)
             {
 
-                Console.WriteLine("File path -> " + FilePath);
+                Debug.WriteLine("File path -> " + FilePath);
                 Fname = FilePath;
 
             }
@@ -354,20 +355,20 @@ using Windows.Storage.Streams;
 
                    Sfolder = Sfolder.CreateFolder(str[i], CreationCollisionOption.ReplaceExisting);
 
-                   Console.WriteLine("Successfully created folder: " + Sfolder.Path);
+                   Debug.WriteLine("Successfully created folder: " + Sfolder.Path);
 
                 }
 
                 Fname = str[str.Length - 1];
 
-                Console.WriteLine("File name -> " + Fname);
+                Debug.WriteLine("File name -> " + Fname);
 
               }
 
             }
             catch (Exception)
             {
-                Console.WriteLine("Directories are not supported for internal storage");
+                Debug.WriteLine("Directories are not supported for internal storage");
                 
             }
 
@@ -394,7 +395,7 @@ using Windows.Storage.Streams;
                     {
                         Sfolder = Sfolder.CreateFolder(StartingDirectory, CreationCollisionOption.ReplaceExisting);
 
-                        Console.WriteLine("Successfully created folder: " + Sfolder.Path);
+                        Debug.WriteLine("Successfully created folder: " + Sfolder.Path);
                     }
 
                 }
@@ -408,7 +409,7 @@ using Windows.Storage.Streams;
 
                         Sfolder = Sfolder.CreateFolder(str[i], CreationCollisionOption.ReplaceExisting);
 
-                        Console.WriteLine("Successfully created folder: " + Sfolder.Path);
+                        Debug.WriteLine("Successfully created folder: " + Sfolder.Path);
 
                     }
 
@@ -417,7 +418,7 @@ using Windows.Storage.Streams;
             }
             catch (Exception)
             {
-                Console.WriteLine("Directories are not supported for internal storage");
+                Debug.WriteLine("Directories are not supported for internal storage");
 
             }
 
@@ -447,7 +448,7 @@ using Windows.Storage.Streams;
 
                         FileIO.WriteText(File, st);
 
-                        Console.WriteLine("Wrote " + st.Length + " bytes to " + FilePath + " for append");
+                        Debug.WriteLine("Wrote " + st.Length + " bytes to " + FilePath + " for append");
 
                     }
                     else
@@ -456,14 +457,14 @@ using Windows.Storage.Streams;
 
                         FileIO.WriteText(File, Text);
 
-                        Console.WriteLine("Wrote " + Text.Length + " bytes to " + FilePath);
+                        Debug.WriteLine("Wrote " + Text.Length + " bytes to " + FilePath);
                     }
              
             }
 
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                Debug.WriteLine("Error: " + ex.Message);
 
             }
         }
@@ -490,7 +491,7 @@ using Windows.Storage.Streams;
                   
                     File.Delete();
 
-                        Console.WriteLine(Fname + " deleted");
+                        Debug.WriteLine(Fname + " deleted");
                         found = true;
 
                     }
@@ -498,7 +499,7 @@ using Windows.Storage.Streams;
                 }
 
             if (found == false)
-                Console.WriteLine(FilePath + " not found");
+                Debug.WriteLine(FilePath + " not found");
          
         }
 
@@ -531,7 +532,7 @@ using Windows.Storage.Streams;
 
             foreach (var Folder in Folders)
             {
-                Console.WriteLine("Folder Name -> " + Folder.Name);
+                Debug.WriteLine("Folder Name -> " + Folder.Name);
 
                 if (DirectoryToDelete == Folder.Name)
                 {
@@ -539,7 +540,7 @@ using Windows.Storage.Streams;
 
                     Folder.Delete();
 
-                    Console.WriteLine(Folder.Path + " deleted");
+                    Debug.WriteLine(Folder.Path + " deleted");
 
                     found = true;
 
@@ -548,13 +549,13 @@ using Windows.Storage.Streams;
             }
 
             if (found == false)
-                Console.WriteLine(DirectoryToDelete + " not found");
+                Debug.WriteLine(DirectoryToDelete + " not found");
 
             }
             catch (Exception ex )
             {
 
-                Console.WriteLine("Error deleting directory the directory must be empty: " + ex.Message);
+                Debug.WriteLine("Error deleting directory the directory must be empty: " + ex.Message);
 
             }
 
@@ -584,7 +585,7 @@ using Windows.Storage.Streams;
                     
                     if(FileExists(NewFilename))
                     {
-                        Console.WriteLine(FilePath + " can't be renamed " + NewFilename + " exists");
+                        Debug.WriteLine(FilePath + " can't be renamed " + NewFilename + " exists");
 
                     }
 
@@ -592,7 +593,7 @@ using Windows.Storage.Streams;
                     {
                         File.Rename(NewFilename);
 
-                        Console.WriteLine(FilePath + " renamed " + NewFilename);
+                        Debug.WriteLine(FilePath + " renamed " + NewFilename);
 
                         found = true;
 
@@ -603,7 +604,7 @@ using Windows.Storage.Streams;
             }
 
             if (found == false)
-                Console.WriteLine(FilePath + " not found");
+                Debug.WriteLine(FilePath + " not found");
 
         }
 
@@ -625,7 +626,7 @@ using Windows.Storage.Streams;
 
                     if (Fname == File.Name)
                     {
-                        Console.WriteLine(Fname + " exists");
+                        Debug.WriteLine(Fname + " exists");
 
                         return true;
 
@@ -633,7 +634,7 @@ using Windows.Storage.Streams;
 
                 }
 
-                Console.WriteLine(Fname + " not found");
+                Debug.WriteLine(Fname + " not found");
 
                 return false;
 
@@ -642,7 +643,7 @@ using Windows.Storage.Streams;
 
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                Debug.WriteLine("Error: " + ex.Message);
 
                 return false;
             }
@@ -658,7 +659,7 @@ using Windows.Storage.Streams;
             if (SDCard.IsMounted)
             {
                 SDCard.Unmount();
-                Console.WriteLine("SDCard successfully unmounted");
+                Debug.WriteLine("SDCard successfully unmounted");
             }
         }
     

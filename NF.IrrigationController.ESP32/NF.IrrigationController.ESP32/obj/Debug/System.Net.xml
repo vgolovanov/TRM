@@ -274,6 +274,20 @@
             Wi-Fi Protected Access 2 protocol.
             </summary>
         </member>
+        <member name="T:System.Net.NetworkInformation.IPGlobalProperties">
+            <summary>
+            Provides information about the network connectivity of the local computer.
+            </summary>
+        </member>
+        <member name="M:System.Net.NetworkInformation.IPGlobalProperties.GetIPAddress">
+            <summary>
+            Gets the IP address of the network interface.
+            </summary>
+            <returns>An <see cref="T:System.Net.IPAddress"/> if a valid IP address is available; otherwise, an <see cref="F:System.Net.IPAddress.Any"/>.</returns>
+            <remarks>
+            This method is exclusive of .NET nanoFramework.
+            </remarks>
+        </member>
         <member name="T:System.Net.NetworkInformation.RadioType">
             <summary>
             Specifies the type of radio that the wireless network uses.
@@ -507,6 +521,17 @@
             This class is exclusive of nanoFramework and it does not exist on the UWP API.
             </remarks>
         </member>
+        <member name="M:System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable">
+            <summary>
+            Indicates whether any network connection is available.
+            </summary>
+            <returns>
+            <see langword="true"/> if a network connection is available; otherwise, <see langword="false"/>.
+            </returns>
+            <remarks>
+            A network connection is considered to be available if any network interface is marked "up" and is not a loopback or tunnel interface.
+            </remarks>
+        </member>
         <member name="M:System.Net.NetworkInformation.NetworkInterface.#ctor(System.Int32)">
             <summary>
             Initializes a new instance of the <see cref="T:System.Net.NetworkInformation.NetworkInterface"/> class.
@@ -738,7 +763,12 @@
         </member>
         <member name="F:System.Net.NetworkInformation.Wireless80211Configuration.ConfigurationOptions.None">
             <summary>
-            No flags set.
+            No option set.
+            </summary>
+        </member>
+        <member name="F:System.Net.NetworkInformation.Wireless80211Configuration.ConfigurationOptions.Disable">
+            <summary>
+            Disables the Wireless station.
             </summary>
         </member>
         <member name="F:System.Net.NetworkInformation.Wireless80211Configuration.ConfigurationOptions.Enable">
@@ -750,11 +780,13 @@
         <member name="F:System.Net.NetworkInformation.Wireless80211Configuration.ConfigurationOptions.AutoConnect">
             <summary>
             Will auto connect when AP is available or after being disconnected.
+            This option forces enabling the Wireless station.
             </summary>
         </member>
         <member name="F:System.Net.NetworkInformation.Wireless80211Configuration.ConfigurationOptions.SmartConfig">
             <summary>
-            Enables SmartConfig (if available) for this Wireless station
+            Enables SmartConfig (if available) for this Wireless station.
+            This option forces enabling the Wireless station.
             </summary>
         </member>
         <member name="T:System.Net.NetworkInformation.PhyProtocols">
@@ -923,23 +955,29 @@
         </member>
         <member name="F:System.Net.NetworkInformation.WirelessAPConfiguration.ConfigurationOptions.None">
             <summary>
-            No flags set.
+            No option set.
+            </summary>
+        </member>
+        <member name="F:System.Net.NetworkInformation.WirelessAPConfiguration.ConfigurationOptions.Disable">
+            <summary>
+            Disables the Wireless Soft AP.
             </summary>
         </member>
         <member name="F:System.Net.NetworkInformation.WirelessAPConfiguration.ConfigurationOptions.Enable">
             <summary>
             Enables the Wireless Soft AP.
-            If not set the wireless Soft AP is disabled.
+            If not set the Wireless Soft AP is disabled.
             </summary>
         </member>
         <member name="F:System.Net.NetworkInformation.WirelessAPConfiguration.ConfigurationOptions.AutoStart">
             <summary>
-            Will automatically start AP when CLR starts.
+            Will automatically start the Soft AP when CLR starts.
+            This option forces enabling the Wireless Soft AP.
             </summary>
         </member>
         <member name="F:System.Net.NetworkInformation.WirelessAPConfiguration.ConfigurationOptions.HiddenSSID">
             <summary>
-            The SSID for the Soft AP will be hidden 
+            The SSID for the Soft AP will be hidden.
             </summary>
         </member>
         <member name="T:System.Net.Security.CertificateManager">
@@ -1056,6 +1094,16 @@
             The default behaviour is <see cref="F:System.Net.Security.SslVerification.CertificateRequired"/>.
             </summary>
         </member>
+        <member name="P:System.Net.Security.SslStream.UseStoredDeviceCertificate">
+            <summary>
+            Option to use the certificate stored in the device as client or server certificate.
+            The default option is <see langword="false"/>.
+            </summary>
+            <remarks>
+            This property is exclusive of .NET nanoFramework.
+            In case there is no device certificate stored, the authentication will use whatever is provided (or not) in the parameter of the method being called.
+            </remarks>
+        </member>
         <member name="M:System.Net.Security.SslStream.#ctor(System.Net.Sockets.Socket)">
             <summary>
             Initializes a new instance of the SslStream class using the specified Socket.
@@ -1082,6 +1130,9 @@
             <param name="targetHost">The name of the server that will share this SslStream.</param>
             <param name="clientCertificate">The client certificate.</param>
             <param name="enabledSslProtocols">The <see cref="T:System.Net.Security.SslProtocols"/> value that represents the protocol used for authentication.</param>
+            <remarks>
+            Instead of providing the client certificate in the <paramref name="clientCertificate"/> parameter the <see cref="P:System.Net.Security.SslStream.UseStoredDeviceCertificate"/> property can be used to use the certificate stored in the device.
+            </remarks>
         </member>
         <member name="M:System.Net.Security.SslStream.AuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Certificate,System.Net.Security.SslProtocols)">
             <summary>
@@ -1092,6 +1143,9 @@
             <param name="clientCertificate">The client certificate.</param>
             <param name="ca">Certificate Authority certificate to use for authentication with the server.</param>
             <param name="enabledSslProtocols">The <see cref="T:System.Net.Security.SslProtocols"/> value that represents the protocol used for authentication.</param>
+            <remarks>
+            Instead of providing the client certificate in the <paramref name="clientCertificate"/> parameter the <see cref="P:System.Net.Security.SslStream.UseStoredDeviceCertificate"/> property can be used to use the certificate stored in the device.
+            </remarks>
         </member>
         <member name="M:System.Net.Security.SslStream.AuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Net.Security.SslProtocols)">
             <summary>
@@ -1100,6 +1154,9 @@
             </summary>
             <param name="serverCertificate">The certificate used to authenticate the server.</param>
             <param name="enabledSslProtocols">The protocols that may be used for authentication.</param>
+            <remarks>
+            Instead of providing the server certificate in the <paramref name="serverCertificate"/> parameter the <see cref="P:System.Net.Security.SslStream.UseStoredDeviceCertificate"/> property can be used to use the certificate stored in the device.
+            </remarks>
         </member>
         <member name="M:System.Net.Security.SslStream.AuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Net.Security.SslProtocols)">
             <summary>
@@ -1108,6 +1165,9 @@
             <param name="serverCertificate">The X509Certificate used to authenticate the server.</param>
             <param name="clientCertificateRequired">A <see cref="T:System.Boolean"/> value that specifies whether the client is asked for a certificate for authentication. Note that this is only a request, if no certificate is provided, the server still accepts the connection request.</param>
             <param name="enabledSslProtocols">The protocols that may be used for authentication.</param>
+            <remarks>
+            Instead of providing the server certificate in the <paramref name="serverCertificate"/> parameter the <see cref="P:System.Net.Security.SslStream.UseStoredDeviceCertificate"/> property can be used to use the certificate stored in the device.
+            </remarks>
         </member>
         <member name="P:System.Net.Security.SslStream.IsServer">
             <summary>
@@ -3316,6 +3376,18 @@
             Gets a value that indicates whether an X509Certificate2 object contains a private key.
             </summary>
             <value><see langword="true"/> if the <see cref="T:System.Security.Cryptography.X509Certificates.X509Certificate2"/> object contains a private key; otherwise, <see langword="false"/>.</value>
+        </member>
+        <member name="P:System.Security.Cryptography.X509Certificates.X509Certificate2.PrivateKey">
+            <summary>
+            Gets the private key, null if no private key
+            </summary>
+            <remarks>This will give you access directly to the raw decoded byte array of the private key</remarks>
+        </member>
+        <member name="P:System.Security.Cryptography.X509Certificates.X509Certificate2.PublicKey">
+            <summary>
+            Gets the public key
+            </summary>
+            <remarks>This will give you access directly to the raw decoded byte array of the public key</remarks>
         </member>
         <member name="P:System.Security.Cryptography.X509Certificates.X509Certificate2.NotAfter">
             <summary>

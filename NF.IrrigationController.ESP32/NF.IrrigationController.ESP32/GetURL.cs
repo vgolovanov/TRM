@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text;
 
 namespace NF.IrrigationController.ESP32
@@ -141,7 +142,8 @@ namespace NF.IrrigationController.ESP32
         ///     ''' </summary>
         private static void PrintData(string Str)
         {
-            Console.WriteLine(Str);
+            Debug.WriteLine(Str);
+            
         }
 
         /// <summary>

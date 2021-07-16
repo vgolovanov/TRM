@@ -3,8 +3,7 @@ using System.Threading;
 using System.Net.Sockets;
 using System.Text;
 using nanoFramework.Runtime.Native;
-
-
+using System.Diagnostics;
 
 namespace NF.IrrigationController.ESP32
 {
@@ -18,11 +17,12 @@ namespace NF.IrrigationController.ESP32
 
         public static void Main()
         {
-            Console.WriteLine("Hello world!");
+            Debug.WriteLine("Hello world!");
 
-            UInt32 freememory = Debug.GC(false);
+            //UInt32 freememory = Debug.GC(false);
+            UInt32 freememory = 0;
 
-            Console.WriteLine("Free Memory: " + freememory);
+            Debug.WriteLine("Free Memory: " + freememory);
 
             // Create SD storage 
             // Changed SPI pins on board
@@ -176,7 +176,7 @@ namespace NF.IrrigationController.ESP32
 
             void ServerRequest()
             {
-                Console.WriteLine(webServer.RequestString);
+                Debug.WriteLine(webServer.RequestString);
 
                 string response = GetURL.DecodeURLString(webServer.RequestString);         
                

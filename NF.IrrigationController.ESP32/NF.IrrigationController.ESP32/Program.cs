@@ -2,28 +2,33 @@
 using System.Threading;
 using System.Net.Sockets;
 using System.Text;
-using nanoFramework.Runtime.Native;
 using System.Diagnostics;
+using GC = nanoFramework.Runtime.Native.GC;
+using NF.SSD1306.i2c;
+
+
 
 namespace NF.IrrigationController.ESP32
 {
+
+
     public class Program
     {
         // Set SD public to use in other librarys 
         public static nfStorage SD;
 
-        public static OLED oled;
+        public static  OLED oled;
+
+        //public ZoneTimer zoneTimer;
+
 
 
         public static void Main()
         {
-            Debug.WriteLine("Hello world!");
+            Debug.WriteLine("Hello from ESP32!");
 
-            //UInt32 freememory = Debug.GC(false);
-            UInt32 freememory = 0;
-
-            Debug.WriteLine("Free Memory: " + freememory);
-
+            Debug.WriteLine(">> free memory: " + GC.Run(true) + " bytes");
+           
             // Create SD storage 
             // Changed SPI pins on board
             int CSPin = 15;
@@ -31,8 +36,8 @@ namespace NF.IrrigationController.ESP32
             int MISOPin = 5;
             int CLKPin = 16;
 
-            //Set constructor to SDCard
-            SD = new nfStorage(true, MOSIPin, MISOPin, CLKPin, CSPin);
+            //Set constructor to false for internal storage 
+            SD = new nfStorage(false, MOSIPin, MISOPin, CLKPin, CSPin);
 
             // Get configuration files
 
@@ -46,25 +51,28 @@ namespace NF.IrrigationController.ESP32
 
             // Password
             // Replace with your SSID and Password
-            string Password = "password";
+            string Password = "3098280065";
 
-            if (SD.FileExists("Password.txt"))
-            {
-                Password = SD.ReadText("Password.txt");
+            
+            // Use only with SD card with Password.txt 
+            //if (SD.FileExists("Password.txt"))
+            // {
+            //   Password = SD.ReadText("Password.txt");
 
-            }
+            // }
 
            // SSID
            // Replace with SSID
-            string SSID = "ssid";
+            string SSID = "weaver";
 
-            if (SD.FileExists("SSID.txt"))
-            {
-                SSID = SD.ReadText("SSID.txt");
+            // Use only with SD card with SSID.txt 
+            //  if (SD.FileExists("SSID.txt"))
+            //  {
+            //    SSID = SD.ReadText("SSID.txt");
 
-            }
+            // }
 
-            
+
             // Days on
             if (SD.FileExists("Days.txt"))
             {
@@ -148,49 +156,69 @@ namespace NF.IrrigationController.ESP32
 
 
             // Create SSD1306 Oled
-            oled = new OLED(OLED.DeviceConnectionSting.I2C1, 0x3C);
-
-            oled.Initialize();
-
+            oled = new(OLED.DisplayType.OLED128x64,18,19,true);
+            
             oled.Write(0, 2, "Connecting to network");
-  
+          
             // Create the web server
             HttpWebServer webServer = new HttpWebServer(SSID, Password, ZoneTimer.TimeOffSet);
 
             // Ceate a method to used when a ServerRequest event is raised
             webServer.ServerRequest += ServerRequest;
 
-           
+
+            var zoneTimer = new ZoneTimer();
 
             
-
-          
-
-
             
-            ZoneTimer.Initialize();
-
             
-
-            Thread.Sleep(Timeout.Infinite);
+                
+            while (true)
+            {
+ 
+                oled.Write(0, 6, DateTime.UtcNow.ToString("dd MMM HH:mm"));
+                
+                Thread.Sleep(60000);
+            }
+ 
 
             void ServerRequest()
             {
                 Debug.WriteLine(webServer.RequestString);
+                       
+                string response = GetURL.DecodeURL(webServer.RequestString);
 
-                string response = GetURL.DecodeURLString(webServer.RequestString);         
-               
+                if (response == "favicon.ico")
+                {
+                    Debug.WriteLine("Requested favicon.ico");
+                    //image/vnd.microsoft.icon
 
-                //Compose a response
-                //string response = "Hello World Utc central date and time is " + DateTime.UtcNow.AddHours(ZoneTimer.TimeOffSet);
+                    // Send the image
+                    byte[] icon = WebPages.faviconpage();
 
-                string header = "HTTP/1.0 200 OK\r\nContent-Type: text; charset=utf-8\r\nContent-Length: " + response.Length.ToString() + "\r\nConnection: close\r\n\r\n";
+                    string header = "HTTP/1.0 200 OK\r\nContent-Type: image/vnd.microsoft.icon\r\nContent-Length: " + icon.Length.ToString() + "\r\nConnection: close\r\n\r\n";
+                   
+                    Debug.WriteLine("Icon Length: >> " + icon.Length);
 
-                webServer.clientSocket.Send(Encoding.UTF8.GetBytes(header), header.Length, SocketFlags.None);
+                    webServer.clientSocket.Send(Encoding.UTF8.GetBytes(header), header.Length, SocketFlags.None);
 
-                webServer.clientSocket.Send(Encoding.UTF8.GetBytes(response), response.Length, SocketFlags.None);
-                
-            
+                    webServer.clientSocket.Send(icon, icon.Length, SocketFlags.None);
+                    
+                }
+                else
+                { 
+                    //Compose a response for testing
+                    //string response = "Hello World Utc central date and time is " + DateTime.UtcNow.AddHours(ZoneTimer.TimeOffSet);
+
+                    string header = "HTTP/1.0 200 OK\r\nContent-Type: text; charset=utf-8\r\nContent-Length: " + response.Length.ToString() + "\r\nConnection: close\r\n\r\n";
+
+                    webServer.clientSocket.Send(Encoding.UTF8.GetBytes(header), header.Length, SocketFlags.None);
+
+                    webServer.clientSocket.Send(Encoding.UTF8.GetBytes(response), response.Length, SocketFlags.None);
+
+
+                }
+
             }
 
            

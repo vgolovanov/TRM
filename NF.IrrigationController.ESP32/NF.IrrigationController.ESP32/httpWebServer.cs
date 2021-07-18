@@ -5,16 +5,21 @@ using System.Net.Sockets;
 using System.Net.NetworkInformation;
 using System.Threading;
 using System.Diagnostics;
+using nanoFramework.Networking;
+using nanoFramework.Runtime.Native;
+
+
 
 namespace NF.IrrigationController.ESP32
 {
 
     /// <summary>
+    /// Thanks to Laurent Ellerbach who wrote the networker helper that simplified in improved this project.
     /// HttpWebServer is a simple way to use web pages to communicate with your project
     /// This project has been tested with the ESP DevKit C and Pico D4
     /// The nanoFramework samples are a great resource for this project https://github.com/nanoframework/Samples
     /// For more details on using a web server see my ESP8266 Serial Wi-Fi https://github.com/Dweaver309/nanoFramework.serial.wifi.esp8266
-    /// To learn about parsing GET and POST requests and much more see this https://archive.codeplex.com/?p=netmfwebserver
+    /// Great example https://www.hackster.io/ellerbach/net-nanoframework-rest-api-and-web-server-3c2e9e
     /// </summary>
     class HttpWebServer : IDisposable
     {
@@ -27,45 +32,43 @@ namespace NF.IrrigationController.ESP32
         public delegate void dgEventRaiser();
 
         public event dgEventRaiser ServerRequest;
-
-        private string _SSID = string.Empty;
-
-        private string _Password = string.Empty;
-
-        private Double _TimeOffSet = 0;
-
+        
         /// <summary>
         /// Constructor for creating the web server
         /// Example: HttpWebServer  webServer = new HttpWebServer("SSID", "password", -4);
         /// </summary>
         public HttpWebServer(string SSID, string Password, Double TimeOffSet = -5)
         {
-            _SSID = SSID;
-
-            _Password = Password;
-
-            _TimeOffSet = TimeOffSet;
-
-            ConnectNetwork();
-
+          
+            bool success;
+            
+            CancellationTokenSource cs = new(60000);
+            
+            success = NetworkHelper.ConnectWifiDhcp(SSID, Password, setDateTime: true, token: cs.Token);
+            
             // Initialize Socket class
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            //Request and bind to an IP from DHCP server
+            // Request and bind to an IP from DHCP server
             socket.Bind(new IPEndPoint(IPAddress.Any, 80));
 
             Debug.WriteLine(NetworkInterface.GetAllNetworkInterfaces()[0].IPv4Address);
+
+            Program.oled.ClearScreen();
+                      
+            Program.oled.Write(2, 2, "IP " + NetworkInterface.GetAllNetworkInterfaces()[0].IPv4Address);
+
+            String macString = BitConverter.ToString(NetworkInterface.GetAllNetworkInterfaces()[0].PhysicalAddress);
+                        
+            Program.oled.Write(0, 4, "Mac " + macString);
 
             // Start listen for web requests
             socket.Listen(10);
 
             // SMTP connects automatically to get time
-            //Rtc.SetSystemTime(DateTime.UtcNow.AddHours(_TimeOffSet));
-            DateTime.UtcNow.AddHours(_TimeOffSet);
-
-            
-
-            Debug.WriteLine("System time is:" + DateTime.UtcNow.ToString());
+            Rtc.SetSystemTime(DateTime.UtcNow.AddHours(TimeOffSet));
+           
+            Debug.WriteLine("System time is: " + DateTime.UtcNow.ToString());
 
             // Create and start a thead for listening for server requests
             Thread tListenforRequest = new Thread(ListenForRequest);
@@ -112,108 +115,8 @@ namespace NF.IrrigationController.ESP32
                 }
             }
         }
-
-        /// <summary>
-        /// Connect to the SSID network and login using the Password
-        /// </summary>
-        private void ConnectNetwork()
-        {
-            NetworkInterface[] nis = NetworkInterface.GetAllNetworkInterfaces();
-
-            if (nis.Length > 0)
-            {
-                // Get the first interface
-                NetworkInterface ni = nis[0];
-
-
-                if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211)
-                {
-
-                    // Network interface is Wi-Fi
-                    Debug.WriteLine("Network connection is: Wi-Fi");
-
-                    Wireless80211Configuration wc = Wireless80211Configuration.GetAllWireless80211Configurations()[ni.SpecificConfigId];
-
-                    // wc.Ssid = _SSID;
-
-                    //  wc.Password = _Password;
-                    if (wc.Ssid != _SSID && wc.Password != _Password)
-                    {
-
-                        // Updated 9/27/2019
-                        wc.Options =
-                                Wireless80211Configuration.ConfigurationOptions.Enable
-                               | Wireless80211Configuration.ConfigurationOptions.AutoConnect;
-
-                        wc.Ssid = _SSID;
-                        wc.Password = _Password;
-
-                        // Save so when we reboot it will connect automatically
-                        wc.SaveConfiguration();
-
-                       
-                        // Uncomment to restart
-                        // Power.RebootDevice();
-                    }
-
-                }
-
-                else
-                {
-
-                    // Network interface is Ethernet
-                    Debug.WriteLine("Network connection is: Ethernet");
-
-                    ni.EnableDhcp();
-
-                }
-
-                // Wait for DHCP to complete
-                WaitIP();
-
-            }
-
-            else
-            {
-                throw new NotSupportedException("ERROR: there is no network interface configured.\r\nOpen the 'Edit Network Configuration' in Device Explorer and configure one.");
-            }
-
-        }
-
-        /// <summary>
-        /// Wait for the IP address
-        /// </summary>
-        private void WaitIP()
-        {
-            Debug.WriteLine("Waiting for IP...");
-
-
-            while (true)
-            {
-
-                NetworkInterface ni = NetworkInterface.GetAllNetworkInterfaces()[0];
-
-                if (ni.IPv4Address != null && ni.IPv4Address.Length > 0)
-                {
-
-                    if (ni.IPv4Address[0] != '0')
-                    {
-
-                        Debug.WriteLine($"We have an IP: {ni.IPv4Address}");
-
-                        break;
-
-                    }
-
-                }
-
-                Thread.Sleep(1000);
-
-            }
-
-        }
-
-
+     
+      
         ~HttpWebServer()
         {
             Dispose();

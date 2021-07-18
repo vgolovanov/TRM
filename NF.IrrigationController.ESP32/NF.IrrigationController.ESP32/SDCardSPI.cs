@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
 using nanoFramework.Hardware.Esp32;
 using Windows.Storage;
 using Windows.Storage.Devices;
 using Windows.Storage.Streams;
+using System.Diagnostics;
 
-//namespace NF.IrrigationController.ESP32
-//{
+namespace NF.IrrigationController.ESP32
+{
     public class nfStorage
     {
        
@@ -29,7 +29,7 @@ using Windows.Storage.Streams;
         ////PI1 CLOCK Pin 19
         //SPI1 MOSI Pin 23
         /// </summary>
-        public nfStorage(Boolean DeviceIsSDCard = true, int MOSIPin = 23, int MISOPin = 25, int CLOCKPin = 19, int CSPin = 26)
+        public nfStorage(Boolean DeviceIsSDCard = false, int MOSIPin = 23, int MISOPin = 25, int CLOCKPin = 19, int CSPin = 26)
         {
 
             if (DeviceIsSDCard == false)
@@ -665,4 +665,4 @@ using Windows.Storage.Streams;
     
     }
 
-//}
+}
